@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="5a131b84-219c-438d-b3c3-ceee4e43260d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#55A955">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFE6CF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="usuariosDATA" uuid="557c87a0-4156-4378-badc-ddf95c8167c4">
+		<queryString>
+			<![CDATA[SELECT 
+fecha_acceso AS fecha,
+COUNT(id_estado) AS contador
+FROM estado_usuario
+GROUP BY fecha_acceso;]]>
+		</queryString>
+		<field name="fecha" class="java.sql.Date"/>
+		<field name="contador" class="java.lang.Long"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT
+     (SELECT fondos.`archivo` from fondos WHERE id_fondo=7) AS fondo_i1,
+     (SELECT fondos.`archivo` from fondos WHERE id_fondo=8) AS fondo_i2
+FROM
+     fondos]]>
+	</queryString>
+	<field name="fondo_i1" class="java.lang.Object"/>
+	<field name="fondo_i2" class="java.lang.Object"/>
+	<variable name="tiempo" class="java.lang.String"/>
+	<pageHeader>
+		<band height="103">
+			<image>
+				<reportElement x="0" y="0" width="802" height="103" uuid="886dc052-d312-429b-ab3e-3ddd268efc7f"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_i1})]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="92">
+			<staticText>
+				<reportElement x="0" y="0" width="801" height="92" uuid="0542b722-9f6d-42fc-88d0-ee99c1a914f8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicios de sesión por día]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="74">
+			<image>
+				<reportElement x="0" y="0" width="802" height="74" uuid="f36116aa-27f9-438f-800b-9f7bad95570f"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_i2})]]></imageExpression>
+			</image>
+			<textField pattern="h.mm a">
+				<reportElement x="567" y="40" width="68" height="15" uuid="447a0f3a-cc12-4495-9820-60f5e45823ec"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="422" y="40" width="132" height="15" uuid="7a4ea8f4-52cc-4962-a4cf-ef644250e8dc"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="114" y="40" width="100" height="12" uuid="e81827d4-bb2d-47a8-a952-29587e554fc5"/>
+				<textElement>
+					<font size="6" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="168">
+			<componentElement>
+				<reportElement key="table 3" style="table 3" x="181" y="0" width="405" height="168" uuid="b4940d9c-4322-4634-bc04-f4cd81bbe890"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="usuariosDATA" uuid="d6cae8f7-169d-4204-944d-b3e225101f5e">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="385" uuid="afbe8a8e-cfba-4d2b-bd19-3ca23059ebab">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="11" y="0" width="374" height="30" uuid="a3f664b1-f1ed-463b-a782-123c0690f754"/>
+								<textElement>
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha de registro]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="11" y="0" width="374" height="20" uuid="439e4501-eba3-4bfc-8f63-4d4a7c4aa66c"/>
+								<textFieldExpression><![CDATA[$F{fecha}.toString()]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="84" uuid="a78ce4d5-8fbf-45a9-9344-2287cc0728cb">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="84" height="30" uuid="eea5e006-fbc5-44eb-be8b-1d323573a8b2"/>
+								<textElement textAlignment="Center">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="84" height="20" uuid="5fa1684b-b2c3-4b1b-9fe1-08e3e5e30201"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{contador}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

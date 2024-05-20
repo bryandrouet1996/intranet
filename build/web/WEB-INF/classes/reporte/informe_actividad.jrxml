@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e26535a8-c31e-41b1-99f4-853411d8fba4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_actividad" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[276]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     (SELECT fondos.`archivo` FROM fondos WHERE id_fondo=9) AS fondo_i1,
+     CONCAT_WS(' ',usuario.`nombre`,usuario.`apellido`) AS nombrecompleto,
+     CONCAT_WS(' ',actividad.`herramienta`,actividad.`herramienta_otro`) AS herramientas,
+usuario.`id_usuario` AS usuario_id_usuario,
+     usuario.`codigo_usuario` AS usuario_codigo_usuario,
+     usuario.`nombre` AS usuario_nombre,
+     usuario.`apellido` AS usuario_apellido,
+     usuario.`cedula` AS usuario_cedula,
+     usuario.`correo` AS usuario_correo,
+     usuario.`clave` AS usuario_clave,
+     usuario.`iniciales` AS usuario_iniciales,
+     usuario.`codigo_cargo` AS usuario_codigo_cargo,
+     usuario.`fecha_creacion` AS usuario_fecha_creacion,
+     cargo.`id_cargo` AS cargo_id_cargo,
+     cargo.`codigo_cargo` AS cargo_codigo_cargo,
+     cargo.`descripcion` AS cargo_descripcion,
+     cargo.`fecha_creacion` AS cargo_fecha_creacion,
+     actividad.`id_actividad` AS actividad_id_actvidad,	
+     actividad.`id_usuario` AS actividad_id_usuario,
+     actividad.`tarea` AS actividad_tarea,
+     actividad.`fecha_actividad` AS actividad_fecha_actividad,
+     actividad.`herramienta` AS actividad_herramienta,
+     actividad.`observacion` AS actividad_observacion,
+     actividad.`hora_inicio` AS actividad_hora_inicio,
+     actividad.`hora_fin` AS actividad_hora_fin,
+     actividad.`requiriente` AS actividad_requiriente,
+     (IFNULL((SELECT organizacion.`nombre` FROM usuario INNER JOIN organizacion ON usuario.`codigo_unidad`=organizacion.`nivel_hijo` WHERE usuario.`id_usuario`=usuario_id_usuario), 'NO ASIGNADA')) AS unidad
+FROM
+     fondos,
+     `actividad` actividad INNER JOIN `usuario` usuario ON usuario.`id_usuario`=actividad.`id_usuario` INNER JOIN `cargo` cargo ON usuario.`codigo_cargo`= cargo.`codigo_cargo`
+WHERE
+     actividad.`id_actividad` = $P{id_actividad}]]>
+	</queryString>
+	<field name="fondo_i1" class="java.lang.Object"/>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<field name="herramientas" class="java.lang.String"/>
+	<field name="usuario_id_usuario" class="java.lang.Integer"/>
+	<field name="usuario_codigo_usuario" class="java.lang.String"/>
+	<field name="usuario_nombre" class="java.lang.String"/>
+	<field name="usuario_apellido" class="java.lang.String"/>
+	<field name="usuario_cedula" class="java.lang.String"/>
+	<field name="usuario_correo" class="java.lang.String"/>
+	<field name="usuario_clave" class="java.lang.String"/>
+	<field name="usuario_iniciales" class="java.lang.String"/>
+	<field name="usuario_codigo_cargo" class="java.lang.String"/>
+	<field name="usuario_fecha_creacion" class="java.sql.Date"/>
+	<field name="cargo_id_cargo" class="java.lang.Integer"/>
+	<field name="cargo_codigo_cargo" class="java.lang.String"/>
+	<field name="cargo_descripcion" class="java.lang.String"/>
+	<field name="cargo_fecha_creacion" class="java.sql.Timestamp"/>
+	<field name="actividad_id_actvidad" class="java.lang.Integer"/>
+	<field name="actividad_id_usuario" class="java.lang.Integer"/>
+	<field name="actividad_tarea" class="java.lang.String"/>
+	<field name="actividad_fecha_actividad" class="java.sql.Date"/>
+	<field name="actividad_herramienta" class="java.lang.String"/>
+	<field name="actividad_observacion" class="java.lang.String"/>
+	<field name="actividad_hora_inicio" class="java.lang.String"/>
+	<field name="actividad_hora_fin" class="java.lang.String"/>
+	<field name="actividad_requiriente" class="java.lang.String"/>
+	<field name="unidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="784" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="784" uuid="f011a02d-8326-44b6-ba6d-f87f959e18a1"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_i1})]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="77" y="203" width="329" height="20" uuid="7ffd1c21-1cb4-4afb-89df-9695b60fb8c5"/>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="254" width="415" height="20" uuid="e292b2f5-875f-4d65-8dcf-6acd36ce7156"/>
+				<textFieldExpression><![CDATA[$F{cargo_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="606" width="455" height="66" uuid="9e5476a2-8a79-4fa5-88a6-a535f67500bd"/>
+				<textFieldExpression><![CDATA[$F{actividad_observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="506" width="456" height="20" uuid="15d70f04-febf-4ba1-9772-b55b69a754c8"/>
+				<textFieldExpression><![CDATA[$F{herramientas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="554" width="455" height="32" uuid="5807bd28-f43a-49fc-9664-0b7b30cfcc1f"/>
+				<textFieldExpression><![CDATA[$F{actividad_requiriente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="458" width="454" height="20" uuid="a5060319-5c43-48ef-b807-d6bfd3ec8a1e"/>
+				<textFieldExpression><![CDATA[$F{actividad_hora_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="405" width="365" height="20" uuid="9c384395-a1da-4d4e-9554-fe6ff25d771f"/>
+				<textFieldExpression><![CDATA[$F{actividad_hora_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="353" width="355" height="20" uuid="27116b86-e3b0-455f-aae1-8e07684202af"/>
+				<textFieldExpression><![CDATA[$F{actividad_tarea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="303" width="411" height="20" uuid="784a6651-af4d-4f8b-8dbd-6536e142bb01"/>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="491" y="771" width="42" height="13" uuid="567348b6-37ca-444f-980d-2346ef8a322d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="772" width="100" height="12" uuid="c0b11b09-7541-419f-b8a1-485383697ffb"/>
+				<textElement>
+					<font size="6" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="347" y="771" width="100" height="13" uuid="bc3dfc24-a886-439a-9e54-5abb3872e815"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="157" width="126" height="20" uuid="0d6e5e75-2655-4ee9-8663-04af30a66f6a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actividad_fecha_actividad}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="78" y="133" width="100" height="20" forecolor="#666666" uuid="aee4aa85-a858-43db-914c-0c3d90f7bc7a"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

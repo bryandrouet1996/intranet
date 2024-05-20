@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="841" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="71"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="conexion_mysql" class="java.sql.Connection" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Nynan\\Documents\\NetBeansProjects\\intranet\\intranet\\src\\java\\reporte\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM v_fichas_historial WHERE id=$P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="id_barrio" class="java.lang.Long"/>
+	<field name="id_creador" class="java.lang.Long"/>
+	<field name="nombre_creador" class="java.lang.String"/>
+	<field name="nombre_barrio" class="java.lang.String"/>
+	<field name="id_sector" class="java.lang.Long"/>
+	<field name="nombre_sector" class="java.lang.String"/>
+	<field name="id_parroquia" class="java.lang.Long"/>
+	<field name="nombre_parroquia" class="java.lang.String"/>
+	<field name="visita_alcalde" class="java.lang.Boolean"/>
+	<field name="brigada_medica" class="java.lang.Boolean"/>
+	<field name="brigada_veterinaria" class="java.lang.Boolean"/>
+	<field name="olla_solidaria" class="java.lang.Boolean"/>
+	<field name="minga_ciudadana" class="java.lang.Boolean"/>
+	<field name="capacitacion" class="java.lang.Boolean"/>
+	<field name="wifi" class="java.lang.Boolean"/>
+	<field name="servicios_entregados" class="java.lang.Integer"/>
+	<field name="creacion" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="85"/>
+				<connectionExpression><![CDATA[$P{conexion_mysql}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "CabeceraFicha.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<detail>
+		<band height="171" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="196" y="109" width="314" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_parroquia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="85" y="109" width="111" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARROQUIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="124" width="111" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECTOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="139" width="111" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BARRIO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="196" y="124" width="314" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_sector}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="196" y="139" width="314" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_barrio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="85" y="12" width="425" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FICHA DE CONTROL SECTORIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="38" width="425" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORMACIÓN GENERAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="79" width="111" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA CREACIÓN:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement x="196" y="79" width="314" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{creacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="85" y="94" width="111" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGISTRADO POR:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement x="196" y="94" width="314" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_creador}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="85" y="168" width="425" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="85" y="64" width="111" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="196" y="64" width="314" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="178">
+			<staticText>
+				<reportElement x="85" y="12" width="425" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="56" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VISITA ALCALDE:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="56" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{visita_alcalde} ? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="85" y="71" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BRIGADA MÉDICA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="86" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BRIGADA VETERINARIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="101" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OLLA SOLIDARIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="116" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINGA CIUDADANA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="131" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAPACITACIÓN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="146" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WIFI:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="71" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{brigada_medica} ? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="101" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{olla_solidaria} ? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="86" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{brigada_veterinaria}? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="116" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{minga_ciudadana} ? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="131" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{capacitacion}? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="146" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{wifi} ? "Sí" : "No"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="85" y="41" width="140" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL SERVICIOS:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="225" y="41" width="285" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{servicios_entregados}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="65"/>
+				<connectionExpression><![CDATA[$P{conexion_mysql}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PieFicha.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+</jasperReport>

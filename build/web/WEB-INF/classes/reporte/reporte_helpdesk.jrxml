@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Helpdesk" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4f1bffd7-c634-42a9-8818-0ba103ec43a3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_solicitud" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *, (SELECT fondos.`archivo` FROM fondos WHERE id_fondo=12) AS fondo FROM v_reporte_helpdesk WHERE id=$P{id_solicitud}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="fecha_solicitud" class="java.sql.Timestamp"/>
+	<field name="id_solicitante" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="solicitante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion_solicitante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="id_forma" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="forma" class="java.lang.String"/>
+	<field name="id_estado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String"/>
+	<field name="incidente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_diagnostico_rep" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_diagnostico" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tecnico" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tecnico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cargo_tecnico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo_solucion" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_solucion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="adjunto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fondo" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="1" y="0" width="554" height="802" uuid="ce717075-e428-4f36-8c34-93102bccdf64"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte [])$F{fondo})]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="406" y="708" width="100" height="13" uuid="1d5a54b7-972f-4c09-a75f-97d74fb12ccb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="48" y="101" width="458" height="30" uuid="b7cc71b0-d5e4-4733-9f9b-80e57f00f1d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE ATENCIÓN DE SOPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="133" width="129" height="20" forecolor="#666666" uuid="764d61a5-793b-4609-a5bf-6e02d1f897c2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código del ticket:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="153" width="129" height="20" forecolor="#666666" uuid="b5e650f0-0e8c-4c67-a89b-1456bb3315f1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de creación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="173" width="129" height="20" forecolor="#666666" uuid="1bf78a30-24bc-4f93-8545-a6832b5cf164"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="213" width="129" height="20" forecolor="#666666" uuid="4dae5c54-0429-4078-adc6-a5e9632937ed"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Requerimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="378" width="129" height="20" forecolor="#666666" uuid="04815f20-6bcd-4e84-a4d4-1031e60ded99"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Técnico encargado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="438" width="129" height="20" forecolor="#666666" uuid="a00eb6cd-87a1-41d4-b216-7f8fd44296bd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnóstico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="418" width="129" height="20" forecolor="#666666" uuid="5048e28f-e736-4cd6-9b1f-789a589febd4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adjunto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="133" width="329" height="20" uuid="b91d9571-5b0b-4e55-9adb-5e535cc909c7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="177" y="153" width="329" height="20" uuid="c71bb818-cc3d-49a2-9589-f78ccf8e5560"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_solicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="173" width="329" height="20" uuid="aa725423-c04d-42c7-8188-a50f9067b912"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{solicitante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="234" width="458" height="119" uuid="b9432471-8f53-403b-9a6b-c6123d3ff3b0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{incidente}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="378" width="329" height="20" uuid="fcdc4ec3-ad28-462d-a955-cbd9eb117bee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="418" width="329" height="20" uuid="d05f21ae-284d-4bba-b576-9c80e55b7c69"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adjunto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="48" y="358" width="129" height="20" forecolor="#666666" uuid="5ee91d0b-570b-40fb-b796-08821cadacfc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de atención:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="177" y="358" width="329" height="20" uuid="633e1cf3-64ef-4349-a593-eb41ca7f148e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_diagnostico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="48" y="398" width="129" height="20" forecolor="#666666" uuid="68db3b63-df4d-46db-8a53-a87b60e615f0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de solución:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="398" width="329" height="20" uuid="a9b67b34-1557-4967-b914-2e7c4501394c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_solucion}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="458" width="458" height="119" uuid="375d0486-07a4-4e7d-a7fa-09d35486baee"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacion}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="161" y="650" width="232" height="1" uuid="905b13d9-7109-41fb-931b-e079aa77b303"/>
+			</line>
+			<textField>
+				<reportElement x="161" y="651" width="232" height="20" uuid="dd225ef7-2064-4dab-b4a4-747bc7dfd8ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="671" width="232" height="29" uuid="e63807d5-7564-4911-81a8-e960432eeefb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_tecnico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="193" width="329" height="20" uuid="8111113b-70e6-4848-b65e-aebdab3e63a5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion_solicitante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

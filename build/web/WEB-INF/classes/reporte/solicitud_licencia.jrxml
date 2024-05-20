@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="841" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a76a2bda-8941-4275-9038-6c2642c41c9a">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="9"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#D9D9C3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#FFFFE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="rutas" uuid="bd7683ef-39ee-45ef-a1bd-ec84d7c62a46">
+		<parameter name="id_viatico" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+     ruta_viatico.`id_viatico` AS ruta_viatico_id_viatico,
+     ruta_viatico.`id_lugarpartida` AS ruta_viatico_id_lugarpartida,
+     ruta_viatico.`id_lugarllegada` AS ruta_viatico_id_lugarllegada,
+     ruta_viatico.`tipo_transporte` AS ruta_viatico_tipo_transporte,
+     ruta_viatico.`nombre_transporte` AS ruta_viatico_nombre_transporte,
+     ruta_viatico.`fecha_salida` AS ruta_viatico_fecha_salida,
+     ruta_viatico.`hora_salida` AS ruta_viatico_hora_salida,
+     ruta_viatico.`fecha_llegada` AS ruta_viatico_fecha_llegada,
+     ruta_viatico.`hora_llegada` AS ruta_viatico_hora_llegada,
+     ciudad.`CiudadID` AS ciudad_CiudadID,
+     (SELECT ciudad.`CiudadNombre` from `ciudad` ciudad where ruta_viatico.`id_lugarpartida`= ciudad.`CiudadID`) as lugarpartida,
+     (SELECT ciudad.`CiudadNombre` from `ciudad` ciudad where ruta_viatico.`id_lugarllegada`= ciudad.`CiudadID`) as lugarllegada,
+	 (SELECT concat_ws('-',lugarpartida,lugarllegada)) as rutaviaje
+FROM
+     `ciudad` ciudad INNER JOIN `ruta_viatico` ruta_viatico ON ciudad.`CiudadID` = ruta_viatico.`id_lugarpartida`
+      where ruta_viatico.`id_viatico`=$P{id_viatico}]]>
+		</queryString>
+		<field name="ruta_viatico_id_viatico" class="java.lang.Integer"/>
+		<field name="ruta_viatico_id_lugarpartida" class="java.lang.Integer"/>
+		<field name="ruta_viatico_id_lugarllegada" class="java.lang.Integer"/>
+		<field name="ruta_viatico_tipo_transporte" class="java.lang.String"/>
+		<field name="ruta_viatico_nombre_transporte" class="java.lang.String"/>
+		<field name="ruta_viatico_fecha_salida" class="java.lang.String"/>
+		<field name="ruta_viatico_hora_salida" class="java.lang.String"/>
+		<field name="ruta_viatico_fecha_llegada" class="java.lang.String"/>
+		<field name="ruta_viatico_hora_llegada" class="java.lang.String"/>
+		<field name="ciudad_CiudadID" class="java.lang.Integer"/>
+		<field name="lugarpartida" class="java.lang.String"/>
+		<field name="lugarllegada" class="java.lang.String"/>
+		<field name="rutaviaje" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="id_viatico" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[16]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CONCAT_WS(' ',usuario.`nombre`,usuario.`apellido`) AS nombrecompleto,
+     viatico.`id_viatico` AS viatico_id_viatico,
+     (SELECT fondos.`archivo` FROM fondos WHERE id_fondo=1) AS fondo_archivo,
+     viatico.`id_tipo` AS viatico_id_tipo,
+     viatico.`id_usuario` AS viatico_id_usuario,
+     viatico.`fecha` AS viatico_fecha_solicitud,
+     viatico.`descripcion_actividad` AS viatico_descripcion_actividad,
+     viatico.`tipo_cuenta` AS viatico_tipo_cuenta,
+     viatico.`numero_cuenta` AS viatico_numero_cuenta,
+     viatico.`nombre_banco` AS viatico_nombre_banco,
+     viatico.`id_estado` AS viatico_id_estado,
+     usuario.`id_usuario` AS usuario_id_usuario,
+     usuario.`codigo_usuario` AS usuario_codigo_usuario,
+     usuario.`nombre` AS usuario_nombre,
+     usuario.`apellido` AS usuario_apellido,
+     usuario.`cedula` AS usuario_cedula,
+     usuario.`correo` AS usuario_correo,
+     usuario.`clave` AS usuario_clave,
+     usuario.`iniciales` AS usuario_iniciales,
+     usuario.`codigo_cargo` AS usuario_codigo_cargo,
+     usuario.`fecha_creacion` AS usuario_fecha_creacion,
+     tipo_viatico.`id_viatico` AS tipo_viatico_id_viatico,
+     tipo_viatico.`descripcion` AS tipo_viatico_descripcion,
+     ruta_viatico.`id_ruta` AS ruta_viatico_id_ruta,
+     ruta_viatico.`id_viatico` AS ruta_viatico_id_viatico,
+     ruta_viatico.`id_lugarpartida` AS ruta_viatico_id_lugarpartida,
+     ruta_viatico.`fecha_salida` AS ruta_viatico_fecha_salida,
+     ruta_viatico.`hora_salida` AS ruta_viatico_hora_salida,
+     ciudad.`CiudadID` AS ciudad_CiudadID,
+     ciudad.`CiudadNombre` AS ciudad_CiudadNombre,
+     ciudad.`PaisCodigo` AS ciudad_PaisCodigo,
+     ciudad.`CiudadDistrito` AS ciudad_CiudadDistrito,
+     ciudad.`CiudadPoblacion` AS ciudad_CiudadPoblacion,
+     ruta_viatico.`fecha_llegada` AS ruta_viatico_fecha_llegada,
+     ruta_viatico.`hora_llegada` AS ruta_viatico_hora_llegada,
+     cargo.`id_cargo` AS cargo_id_cargo,
+     cargo.`codigo_cargo` AS cargo_codigo_cargo,
+     cargo.`descripcion` AS cargo_descripcion,
+     cargo.`fecha_creacion` AS cargo_fecha_creacion,
+     organizacion.`nombre` AS unidad_pertenece,
+     (SELECT CONCAT_WS(' ',usuario.`nombre`,usuario.`apellido` ) FROM usuario WHERE firma_viatico.`id_autoridad` = usuario.`id_usuario`) AS firma_autoridad,
+     (SELECT CONCAT_WS(' ',usuario.`nombre`,usuario.`apellido` ) FROM usuario WHERE firma_viatico.`id_responsable` = usuario.`id_usuario`) AS firma_responsable,
+	 (SELECT organizacion.`nivel_padre` FROM organizacion WHERE usuario.`codigo_unidad`= organizacion.`nivel_hijo`) AS codigo_direccion,
+     (SELECT organizacion.`nombre` FROM organizacion WHERE organizacion.`nivel_hijo`= codigo_direccion) AS direccion_pertenece,
+     (SELECT cargo.`descripcion` FROM cargo INNER JOIN usuario ON usuario.`codigo_cargo`=cargo.`codigo_cargo` WHERE firma_viatico.`id_autoridad` = usuario.`id_usuario`) AS cargo_autoridad,
+     (SELECT cargo.`descripcion` FROM cargo INNER JOIN usuario ON usuario.`codigo_cargo`=cargo.`codigo_cargo` WHERE firma_viatico.`id_responsable` = usuario.`id_usuario`) AS cargo_responsable,
+     GROUP_CONCAT(DISTINCT(SELECT CONCAT_WS(' ',usuario.`nombre`,usuario.`apellido` ) FROM usuario WHERE participacion_viatico.`id_usuario` = usuario.`id_usuario`AND  participacion_viatico.`id_viatico` =$P{id_viatico})) AS participantes,
+     (SELECT IF((SELECT id_tipo FROM viatico WHERE id_viatico=$P{id_viatico})=1,"X","")) AS tipo1,
+     (SELECT IF((SELECT id_tipo FROM viatico WHERE id_viatico=$P{id_viatico})=2,"X","")) AS tipo2,
+     (SELECT IF((SELECT id_tipo FROM viatico WHERE id_viatico=$P{id_viatico})=3,"X","")) AS tipo3,
+     (SELECT IF((SELECT id_tipo FROM viatico WHERE id_viatico=$P{id_viatico})=4,"X","")) AS tipo4
+FROM
+      fondos,
+     `usuario` usuario INNER JOIN `viatico` viatico ON usuario.`id_usuario` = viatico.`id_usuario`
+     INNER JOIN `tipo_viatico` tipo_viatico ON viatico.`id_tipo` = tipo_viatico.`id_viatico`
+     INNER JOIN `ruta_viatico` ruta_viatico ON viatico.`id_viatico` = ruta_viatico.`id_viatico`
+     INNER JOIN `ciudad` ciudad ON ruta_viatico.`id_lugarllegada` = ciudad.`CiudadID`
+     INNER JOIN `cargo` cargo ON usuario.`codigo_cargo`= cargo.`codigo_cargo` 
+     INNER JOIN `participacion_viatico` ON participacion_viatico.`id_viatico`
+     INNER JOIN `organizacion` ON usuario.`codigo_unidad`= organizacion.`nivel_hijo`
+     INNER JOIN	`firma_viatico` ON viatico.`id_viatico`=firma_viatico.`id_viatico`
+WHERE
+     viatico.`id_viatico` = $P{id_viatico}
+GROUP BY 
+     viatico.`id_viatico`]]>
+	</queryString>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<field name="viatico_id_viatico" class="java.lang.Integer"/>
+	<field name="fondo_archivo" class="java.lang.Object"/>
+	<field name="viatico_id_tipo" class="java.lang.Integer"/>
+	<field name="viatico_id_usuario" class="java.lang.Integer"/>
+	<field name="viatico_fecha_solicitud" class="java.sql.Date"/>
+	<field name="viatico_descripcion_actividad" class="java.lang.String"/>
+	<field name="viatico_tipo_cuenta" class="java.lang.String"/>
+	<field name="viatico_numero_cuenta" class="java.lang.String"/>
+	<field name="viatico_nombre_banco" class="java.lang.String"/>
+	<field name="viatico_id_estado" class="java.lang.Integer"/>
+	<field name="usuario_id_usuario" class="java.lang.Integer"/>
+	<field name="usuario_codigo_usuario" class="java.lang.String"/>
+	<field name="usuario_nombre" class="java.lang.String"/>
+	<field name="usuario_apellido" class="java.lang.String"/>
+	<field name="usuario_cedula" class="java.lang.String"/>
+	<field name="usuario_correo" class="java.lang.String"/>
+	<field name="usuario_clave" class="java.lang.String"/>
+	<field name="usuario_iniciales" class="java.lang.String"/>
+	<field name="usuario_codigo_cargo" class="java.lang.String"/>
+	<field name="usuario_fecha_creacion" class="java.sql.Date"/>
+	<field name="tipo_viatico_id_viatico" class="java.lang.Integer"/>
+	<field name="tipo_viatico_descripcion" class="java.lang.String"/>
+	<field name="ruta_viatico_id_ruta" class="java.lang.Integer"/>
+	<field name="ruta_viatico_id_viatico" class="java.lang.Integer"/>
+	<field name="ruta_viatico_id_lugarpartida" class="java.lang.Integer"/>
+	<field name="ruta_viatico_fecha_salida" class="java.sql.Date"/>
+	<field name="ruta_viatico_hora_salida" class="java.lang.String"/>
+	<field name="ciudad_CiudadID" class="java.lang.Integer"/>
+	<field name="ciudad_CiudadNombre" class="java.lang.String"/>
+	<field name="ciudad_PaisCodigo" class="java.lang.String"/>
+	<field name="ciudad_CiudadDistrito" class="java.lang.String"/>
+	<field name="ciudad_CiudadPoblacion" class="java.lang.Integer"/>
+	<field name="ruta_viatico_fecha_llegada" class="java.sql.Date"/>
+	<field name="ruta_viatico_hora_llegada" class="java.lang.String"/>
+	<field name="cargo_id_cargo" class="java.lang.Integer"/>
+	<field name="cargo_codigo_cargo" class="java.lang.String"/>
+	<field name="cargo_descripcion" class="java.lang.String"/>
+	<field name="cargo_fecha_creacion" class="java.lang.String"/>
+	<field name="unidad_pertenece" class="java.lang.String"/>
+	<field name="firma_autoridad" class="java.lang.String"/>
+	<field name="firma_responsable" class="java.lang.String"/>
+	<field name="codigo_direccion" class="java.lang.String"/>
+	<field name="direccion_pertenece" class="java.lang.String"/>
+	<field name="cargo_autoridad" class="java.lang.String"/>
+	<field name="cargo_responsable" class="java.lang.String"/>
+	<field name="participantes" class="java.lang.String"/>
+	<field name="tipo1" class="java.lang.String"/>
+	<field name="tipo2" class="java.lang.String"/>
+	<field name="tipo3" class="java.lang.String"/>
+	<field name="tipo4" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="784" splitType="Stretch">
+			<image>
+				<reportElement x="-1" y="0" width="555" height="784" uuid="4e27cb88-0437-4cb5-a496-adc79dc09c5d"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_archivo})]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="37" y="186" width="237" height="16" uuid="d1e338d8-c25b-43d4-914a-7a1c3a5e0a2c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="110" width="332" height="20" uuid="eff54856-ad4e-45ff-8fd3-a7e07b993144"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viatico_id_viatico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="213" width="237" height="15" uuid="9b315647-1366-40be-8d7f-36df36023c71"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_CiudadNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="239" width="61" height="14" uuid="b36f344a-4d1a-4640-911a-38d6a646887a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ruta_viatico_fecha_salida}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="239" width="59" height="14" uuid="1fe076f2-ff80-4590-9c75-5629067bbc28"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ruta_viatico_hora_salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="239" width="61" height="14" uuid="71b23dc9-56da-41bf-b58c-3dd096540245"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ruta_viatico_fecha_llegada}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="239" width="61" height="14" uuid="9ff84449-c4fb-407d-a80d-854e8bb6c268"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ruta_viatico_hora_llegada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="554" width="157" height="14" uuid="88cb3525-0cf7-423e-8e27-9114f8825725"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viatico_nombre_banco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="554" width="152" height="14" uuid="ba90a8ac-7351-476a-84ed-aab4df7b63cb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viatico_numero_cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="204" y="554" width="153" height="14" uuid="39bcb454-1468-4e94-8f87-7e8c774b9bd4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viatico_tipo_cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="186" width="237" height="16" uuid="b892c053-8bd2-4f9f-8fbc-b20b2787865f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="320" width="485" height="73" uuid="bdfe5ba3-ad1e-4f27-bcc4-66bed237024e"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viatico_descripcion_actividad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="34" y="268" width="486" height="37" uuid="16b9c375-c105-4bfa-b71f-873267e8acae"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantes}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" x="30" y="467" width="491" height="56" uuid="b481601b-1a47-4b51-84e1-bcadfaddb78e"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="rutas" uuid="ed1231c4-94cd-4c54-b33a-1f8802ebe278">
+						<datasetParameter name="id_viatico">
+							<datasetParameterExpression><![CDATA[$P{id_viatico}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="81" uuid="1c154243-1865-4d2b-a2e1-c11972ccfe22">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="81" height="10" uuid="e6bb9105-7abd-4a10-92dd-a50b497fb2ea"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ruta_viatico_tipo_transporte}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="82" uuid="3dcf80db-dd3d-497a-af15-6f5fbbd1bbf0">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="82" height="10" uuid="49d3d79e-26ad-4778-93a6-41c16a762486"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ruta_viatico_nombre_transporte}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="82" uuid="335c0fe3-1860-4e8f-ba1a-3db7d162238d">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="82" height="10" uuid="46fa24fc-65c5-46c9-89c9-c37cb82dbf45"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{rutaviaje}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="62" uuid="297536b2-c46f-4b74-839c-49478f9a805c">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="62" height="10" uuid="177e0d05-53b8-4105-b07f-f0470f8ecd16"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ruta_viatico_fecha_salida}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="62" uuid="2d7499d2-89ce-4457-b3d0-902a015b2e17">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="62" height="10" uuid="bdd4b9f7-87cd-403c-ace5-1925fc685b4a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ruta_viatico_hora_salida}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="61" uuid="6577ac02-c72c-499a-a4e2-05aca80ab273">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="61" height="10" uuid="6f501a5d-3082-4b58-a65e-8a7892a6ac9d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ruta_viatico_fecha_llegada}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="62" uuid="98a1620c-34cc-404c-8b28-1521a0e849bd">
+						<jr:detailCell style="table 4_TD" height="12" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="62" height="10" uuid="2e88d794-4f43-469f-990d-d4a7c7d0d00b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ruta_viatico_hora_llegada}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement x="127" y="642" width="147" height="11" uuid="7d9041e0-919b-4b7d-b828-34c3ec0f7abc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="644" width="145" height="9" uuid="9b94c08b-c584-4318-8c76-269eaada3fc2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firma_responsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="739" width="147" height="9" uuid="d3a821e0-3c9d-4eac-962c-f8226824ae8b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firma_autoridad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="213" width="236" height="15" uuid="f5a5c16b-baa2-42c7-9c74-59e18eb4113e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion_pertenece}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="651" width="241" height="12" uuid="1013200a-76d5-4fcb-9928-32c2e4058eee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="652" width="241" height="9" uuid="3813e1f1-f0f0-41e4-a9cc-2c7f900dc008"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_responsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="34" y="747" width="240" height="11" uuid="76ad266a-50b1-4e19-822d-3dd89bc4d307"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_autoridad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="110" width="145" height="20" uuid="709400fd-1787-4264-9062-5c811fa811d4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viatico_fecha_solicitud}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="359" y="771" width="100" height="13" uuid="2b544a18-f163-4441-a82f-a2f76b5ea5d1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="500" y="771" width="42" height="13" uuid="92818b5f-1e8f-4d51-be64-2105e828d8a1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="29" y="772" width="100" height="12" uuid="0aa4ee9e-58d8-415c-81ab-c4ed4eadbd6e"/>
+				<textElement>
+					<font size="6" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="512" y="130" width="11" height="20" uuid="6f73db59-f1ba-450f-b574-7c946571a5f7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="130" width="11" height="20" uuid="48cc83a6-43f1-4de1-8b4b-407b5331433e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="130" width="11" height="20" uuid="fa0c8cb1-b222-493d-8269-b0e2f748567d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="130" width="11" height="20" uuid="a09556c4-0a9c-41f7-b1ed-49bda4f3850b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1467f64a-8bf0-4574-b07f-70691d83fb45">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="240"/>
+	<parameter name="id_permiso" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[11]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT (SELECT IFNULL((SELECT descrip FROM aprueba_vacas WHERE estado=1 LIMIT 1), "FUNCIONARIO NO DEFINIDO\r\nDIRECCIÓN DE ADMINISTRACIÓN DE TALENTO HUMANO")) AS aprueba_vacas,
+permisovacaciones_usuario.`dias_solicitados` AS dias_solicitados,
+permisovacaciones_usuario.`cargo_jefe` AS cargo_jefe,
+permisovacaciones_usuario.`dias_habiles` AS dias_habiles,
+permisovacaciones_usuario.`dias_recargo` AS dias_recargo,
+permisovacaciones_usuario.`denominacion` AS denominacion,
+permisovacaciones_usuario.`unidad` AS unidad,
+permisovacaciones_usuario.`jefe` AS jefe,
+permisovacaciones_usuario.`consumo` AS consumo,
+permisovacaciones_usuario.`per_rep` AS periodo_reporte,
+(SELECT fondos.`archivo` FROM fondos WHERE id_fondo=5) AS fondo,
+permisovacaciones_usuario.`id_permiso` AS permisovacaciones_usuario_id_permiso,
+(SELECT 'X') AS fecha_aprobacion,
+permisovacaciones_usuario.`fecha_labor` AS fecha_labor,
+	permisovacaciones_usuario.`fecha_inicio` AS permisovacaciones_usuario_fecha_inicio,
+	permisovacaciones_usuario.`fecha_fin` AS permisovacaciones_usuario_fecha_fin,
+	permisovacaciones_usuario.`fecha_ingreso` AS permisovacaciones_usuario_fecha_ingreso,
+	permisovacaciones_usuario.`fecha_solicitud` AS permisovacaciones_usuario_fecha_solicitud,
+permisovacaciones_usuario.`modalidad` AS modalidad,
+	(SELECT ROUND(permisovacaciones_usuario.`dias_pendientes`, 0)) AS permisovacaciones_usuario_dias_pendientes,
+	permisovacaciones_usuario.`observacion` AS permisovacaciones_usuario_observacion,
+	permisovacaciones_usuario.`periodo` AS permisovacaciones_usuario_periodo,
+    (IFNULL((SELECT CONCAT_WS(' ',usuario.`apellido`,usuario.`nombre`) FROM usuario WHERE id_usuario=permisovacaciones_usuario.`id_usuario`), permisovacaciones_usuario.`nombre_usu`)) AS nombrecompleto
+FROM permisovacaciones_usuario
+WHERE permisovacaciones_usuario.`id_permiso`=$P{id_permiso}]]>
+	</queryString>
+	<field name="aprueba_vacas" class="java.lang.String"/>
+	<field name="dias_solicitados" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cargo_jefe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dias_habiles" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dias_recargo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="denominacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jefe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consumo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="periodo_reporte" class="java.lang.String"/>
+	<field name="fondo" class="java.lang.Object"/>
+	<field name="permisovacaciones_usuario_id_permiso" class="java.lang.Integer"/>
+	<field name="fecha_aprobacion" class="java.lang.String"/>
+	<field name="fecha_labor" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="permisovacaciones_usuario_fecha_inicio" class="java.sql.Date"/>
+	<field name="permisovacaciones_usuario_fecha_fin" class="java.sql.Date"/>
+	<field name="permisovacaciones_usuario_fecha_ingreso" class="java.sql.Date"/>
+	<field name="permisovacaciones_usuario_fecha_solicitud" class="java.sql.Date"/>
+	<field name="modalidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="permisovacaciones_usuario_dias_pendientes" class="java.lang.Double"/>
+	<field name="permisovacaciones_usuario_observacion" class="java.lang.String"/>
+	<field name="permisovacaciones_usuario_periodo" class="java.lang.String"/>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<background>
+		<band height="785">
+			<image>
+				<reportElement x="0" y="0" width="555" height="784" uuid="151b1b29-4435-4936-84c4-1eba677d057a"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte [])$F{fondo})]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="784" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="317" y="769" width="132" height="15" uuid="b11e3d9f-287f-471f-b6b6-10bdf08fb5a7"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="462" y="769" width="68" height="15" uuid="f474bcd2-cb96-4715-841c-bf3f269090cc"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="151" width="216" height="19" uuid="00770b88-9269-4053-adcb-4d26f1681519"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="769" width="100" height="12" uuid="4811a96d-5728-45f2-8e97-590a322c604b"/>
+				<textElement>
+					<font size="6" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="483" y="101" width="40" height="17" uuid="0d75a155-db0e-48ab-a50c-acd8d483d91c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisovacaciones_usuario_id_permiso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="172" width="289" height="20" uuid="290853fa-b55e-4259-95e4-2e0ad145802f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{denominacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="350" width="187" height="20" uuid="99f330ac-0ce7-4c09-93d5-81526c7e4e21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{permisovacaciones_usuario_fecha_ingreso}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="327" width="81" height="20" uuid="fe047b55-6ef3-42f6-9108-72391c137d28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{permisovacaciones_usuario_fecha_inicio}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="327" width="87" height="20" uuid="f933acf8-f608-4886-9ffd-55215127c56d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{permisovacaciones_usuario_fecha_fin}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="229" y="305" width="27" height="20" uuid="4c9f41a4-c710-4014-a7a6-7c285a7f3573"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias_habiles}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="216" width="116" height="20" uuid="651fcc1a-df21-43e6-867e-bdddc9cbde8e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{permisovacaciones_usuario_fecha_solicitud}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="172" width="80" height="21" uuid="5feb7db0-cb42-4c36-aaea-40fe6a719a87"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="193" width="359" height="20" uuid="2be1346e-9df7-4d43-9069-9be8bc1b2dc8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="263" y="382" width="31" height="20" uuid="649fe5ef-eb36-40c2-9a31-d9697e98cb8d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{permisovacaciones_usuario_dias_pendientes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="229" y="545" width="42" height="20" uuid="c1226b08-72c2-4ce5-991a-9dc1014519d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="444" y="151" width="79" height="20" uuid="bc45f437-a3f5-401c-8203-299bbfdb6bac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_labor}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="632" width="326" height="16" uuid="752be855-dcf1-4aec-9688-a48f225ef817"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jefe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="222" width="207" height="47" uuid="61a6889e-099c-4945-a834-7b46f3f79029"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="408" y="305" width="37" height="20" uuid="5e47444d-0e26-4c46-ad30-e794afafc964"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias_recargo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="310" y="384" width="136" height="18" uuid="1b2676bb-65fa-4fed-be08-63c6f84c8b02"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25" lineColor="#999999"/>
+					<topPen lineWidth="0.25" lineColor="#999999"/>
+					<leftPen lineWidth="0.25" lineColor="#999999"/>
+					<bottomPen lineWidth="0.25" lineColor="#999999"/>
+					<rightPen lineWidth="0.25" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodo_reporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="123" y="447" width="308" height="29" uuid="c7f5c4e6-a5d0-4236-8ea2-c56958d9dcd3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aprueba_vacas}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="27" y="741" width="216" height="16" uuid="ded59e33-47f4-4fff-87bb-12a738657877"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="643" width="326" height="16" uuid="81eee29c-d5a7-4acb-9616-0db55abc4629"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_jefe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="194" y="283" width="63" height="20" uuid="9d5a698c-4f07-45f0-9110-941532d5f2d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias_solicitados}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

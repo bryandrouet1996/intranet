@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="841" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5bae9703-c620-4029-a942-13b40298b8df">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="160"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ingresos_rol" uuid="5c502013-98e5-42b2-95e2-0cea4bf92d12">
+		<parameter name="id_rol" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+     rol_ingresos.`id_ingresos` AS rol_ingresos_id_ingresos,
+     rol_ingresos.`id_rol` AS rol_ingresos_id_rol,
+     rol_ingresos.`ingreso` AS rol_ingresos_ingreso,
+     rol_ingresos.`valor` AS rol_ingresos_valor
+FROM
+     `rol_ingresos` rol_ingresos WHERE rol_ingresos.`id_rol`=$P{id_rol}]]>
+		</queryString>
+		<field name="rol_ingresos_id_ingresos" class="java.lang.Integer"/>
+		<field name="rol_ingresos_id_rol" class="java.lang.Integer"/>
+		<field name="rol_ingresos_ingreso" class="java.lang.String"/>
+		<field name="rol_ingresos_valor" class="java.lang.Double"/>
+	</subDataset>
+	<subDataset name="descuentos_rol" uuid="d5ec4654-965d-42e6-b408-94c903af2c39">
+		<parameter name="id_rol" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+     rol_descuentos.`id_descuento` AS rol_descuentos_id_descuento,
+     rol_descuentos.`id_rol` AS rol_descuentos_id_rol,
+     rol_descuentos.`descuento` AS rol_descuentos_descuento,
+     rol_descuentos.`valor` AS rol_descuentos_valor
+FROM
+     `rol_descuentos` rol_descuentos WHERE rol_descuentos.`id_rol`=$P{id_rol}]]>
+		</queryString>
+		<field name="rol_descuentos_id_descuento" class="java.lang.Integer"/>
+		<field name="rol_descuentos_id_rol" class="java.lang.Integer"/>
+		<field name="rol_descuentos_descuento" class="java.lang.String"/>
+		<field name="rol_descuentos_valor" class="java.lang.Double"/>
+	</subDataset>
+	<parameter name="codigo_usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[345]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_rol" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[64]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     (SELECT fondos.`archivo` from fondos WHERE id_fondo=4) AS fondo,
+     rol_pago.`id_rol` AS roles_id_rol,
+     rol_pago.`anio` AS roles_anio,
+     rol_pago.`mes` AS roles_mes,
+     rol_pago.`total_ingresos` AS roles_total_ingresos,
+     rol_pago.`total_descuentos` AS roles_total_descuentos,
+     rol_pago.`liquido_recibir` AS roles_liquido_recibir,
+     rol_pago.`descripcion` AS rol_descripcion,
+     usuario.`id_usuario` AS usuario_id_usuario,
+     usuario.`nombre` AS usuario_nombre,
+     usuario.`apellido` AS usuario_apellido,
+     usuario.`cedula` AS usuario_cedula,
+     CONCAT_WS(' ',usuario.`apellido`,usuario.`nombre`) AS nombrecompleto,
+     CONCAT_WS('-',rol_pago.`mes`,rol_pago.`anio`) AS mesanio
+FROM
+     fondos,
+     `rol_pago` rol_pago INNER JOIN usuario ON usuario.`codigo_usuario`=rol_pago.`codigo_usuario`
+WHERE rol_pago.`codigo_usuario`= $P{codigo_usuario} AND rol_pago.`id_rol`=$P{id_rol}]]>
+	</queryString>
+	<field name="fondo" class="java.lang.Object"/>
+	<field name="roles_id_rol" class="java.lang.Integer"/>
+	<field name="roles_anio" class="java.lang.String"/>
+	<field name="roles_mes" class="java.lang.String"/>
+	<field name="roles_total_ingresos" class="java.lang.Double"/>
+	<field name="roles_total_descuentos" class="java.lang.Double"/>
+	<field name="roles_liquido_recibir" class="java.lang.Double"/>
+	<field name="rol_descripcion" class="java.lang.String"/>
+	<field name="usuario_id_usuario" class="java.lang.Integer"/>
+	<field name="usuario_nombre" class="java.lang.String"/>
+	<field name="usuario_apellido" class="java.lang.String"/>
+	<field name="usuario_cedula" class="java.lang.String"/>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<field name="mesanio" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="784" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="784" uuid="406881bd-86ad-415b-8823-b9499918c717"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte [])$F{fondo})]]></imageExpression>
+			</image>
+			<componentElement>
+				<reportElement key="table 1" x="24" y="124" width="238" height="96" uuid="1d5efda7-deb6-4c2a-950c-00d3398cd592"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ingresos_rol" uuid="8d1e43e5-a2cc-48e0-82a6-079846bc9a9a">
+						<datasetParameter name="id_rol">
+							<datasetParameterExpression><![CDATA[$P{id_rol}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="184" uuid="ab6b0b5f-f987-4c79-8264-818a9e76d7b4">
+						<jr:detailCell height="14" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="184" height="14" uuid="dbc84f25-e6d0-4027-b46f-29327ed5da35"/>
+								<textFieldExpression><![CDATA[$F{rol_ingresos_ingreso}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="108" uuid="fb15a228-c5c7-4c5e-88b5-b12de0f6c359">
+						<jr:detailCell height="14" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="51" height="14" uuid="18a4d512-4c34-4e25-9845-6e757d4b6191"/>
+								<textElement textAlignment="Right"/>
+								<textFieldExpression><![CDATA[$F{rol_ingresos_valor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 2" x="297" y="124" width="236" height="96" uuid="272a8f54-0143-4d5d-a49b-7638ea1fbe23"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="descuentos_rol" uuid="2cec547c-acd1-440b-a4c5-9396622b9df0">
+						<datasetParameter name="id_rol">
+							<datasetParameterExpression><![CDATA[$P{id_rol}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="153" uuid="48a2adbc-9018-45dc-aeac-14498c65d3df">
+						<jr:detailCell height="14" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="153" height="14" uuid="e8b83e5d-c57e-4f29-a48e-7ad7ed104233"/>
+								<textFieldExpression><![CDATA[$F{rol_descuentos_descuento}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="4eea0f66-b995-47ce-84e4-ca6bfc56c4b2">
+						<jr:detailCell height="14" rowSpan="1">
+							<textField>
+								<reportElement x="31" y="0" width="53" height="14" uuid="72c07a23-7937-4c17-8f96-0e4c3dc8f74a"/>
+								<textElement textAlignment="Right"/>
+								<textFieldExpression><![CDATA[$F{rol_descuentos_valor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement x="24" y="78" width="273" height="20" uuid="50c27c27-39b0-4edc-8549-6297c86c0c29"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="57" width="94" height="20" uuid="887929f0-4b69-45bd-a6c1-9588a61e9001"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ROL DE PAGOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="479" y="75" width="56" height="20" uuid="1e61d13b-ef0c-4404-8d19-d4bc6b68060d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario_cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="222" width="100" height="20" uuid="ee669d96-1873-4041-a0cd-04023c59e7ce"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{roles_total_ingresos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="222" width="100" height="20" uuid="6a0d410f-4a3b-4591-a07b-5787c181846f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{roles_total_descuentos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="222" width="66" height="20" uuid="3849b9c6-36ee-4a2c-95e9-216d5ccb3517"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{roles_liquido_recibir}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="56" width="326" height="15" uuid="11b98fea-2282-4fe2-9cb6-bfe3d7dc91bf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rol_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="359" y="380" width="100" height="13" uuid="3810d9f8-46e7-4084-bcf5-a870468473b4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="500" y="380" width="42" height="13" uuid="4d99ed50-fcae-4637-8339-d9bb0dcd1923"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="51" y="381" width="100" height="12" uuid="6e02982c-3bf8-4d73-8f99-521198e7231d"/>
+				<textElement>
+					<font size="6" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

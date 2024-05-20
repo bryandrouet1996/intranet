@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="841" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4631af0a-53be-4cca-a1e0-6c4cb293df77">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#D9D9C3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#FFFFE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="id_permiso" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT permisohoras_usuario.`unidad` AS unidad,
+permisohoras_usuario.`denominacion` AS denominacion,
+permisohoras_usuario.`jefe` AS jefe,
+permisohoras_usuario.`cargo_jefe` AS cargo_jefe,
+(SELECT IFNULL((SELECT descrip FROM aprueba_vacas WHERE estado=1 LIMIT 1), "FUNCIONARIO NO DEFINIDO\r\nDIRECCIÓN DE ADMINISTRACIÓN DE TALENTO HUMANO")) AS aprueba_vacas,
+(SELECT fondos.`archivo` FROM fondos WHERE id_fondo=6) AS fondo,
+     permisohoras_usuario.`id_permiso` AS permisohoras_usuario_id_permiso,
+     permisohoras_usuario.`id_usuario` AS permisohoras_usuario_id_usuario,
+     permisohoras_usuario.`fecha_inicio` AS permisohoras_usuario_fecini,
+     permisohoras_usuario.`fecha_fin` AS permisohoras_usuario_fecfin,
+     (SELECT IF(permisohoras_usuario.`id_tipo`=1,permisohoras_usuario.`hora_salida`,'')) AS permisohoras_usuario_hora_salida,
+     (SELECT IF(permisohoras_usuario.`id_tipo`=1,permisohoras_usuario.`hora_entrada`,'')) AS permisohoras_usuario_hora_entrada,
+     permisohoras_usuario.`id_motivo` AS permisohoras_usuario_id_motivo,
+     IF(permisohoras_usuario.`id_motivo`=1, "X", "") AS motivo_1,
+IF(permisohoras_usuario.`id_motivo`=2, "X", "") AS motivo_2,
+IF(permisohoras_usuario.`id_motivo`=3, "X", "") AS motivo_3,
+IF(permisohoras_usuario.`id_motivo`=4, "X", "") AS motivo_4,
+IF(permisohoras_usuario.`id_motivo`=5, "X", "") AS motivo_5,
+IF(permisohoras_usuario.`id_motivo`=6, "X", "") AS motivo_6,
+     permisohoras_usuario.`fecha` AS permisohoras_usuario_fecha,
+     IF(permisohoras_usuario.`id_tipo`=1,permisohoras_usuario.`tiempo_solicita`,CONCAT(permisohoras_usuario.`dias_solicitados`,' día(s)')) AS permisohoras_usuario_tiempo_solicita,
+     permisohoras_usuario.`observacion` AS permisohoras_usuario_observacion,
+     (IFNULL((SELECT CONCAT_WS(' ',usuario.`apellido`,usuario.`nombre`) FROM `usuario` WHERE `usuario`.`id_usuario`=`permisohoras_usuario`.`id_usuario`), `permisohoras_usuario`.`nombre_usu`)) AS nombrecompleto
+FROM permisohoras_usuario
+WHERE permisohoras_usuario.`id_permiso`=$P{id_permiso}]]>
+	</queryString>
+	<field name="unidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="denominacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jefe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cargo_jefe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aprueba_vacas" class="java.lang.String"/>
+	<field name="fondo" class="java.lang.Object"/>
+	<field name="permisohoras_usuario_id_permiso" class="java.lang.Integer"/>
+	<field name="permisohoras_usuario_id_usuario" class="java.lang.Integer"/>
+	<field name="permisohoras_usuario_fecini" class="java.sql.Date"/>
+	<field name="permisohoras_usuario_fecfin" class="java.sql.Date"/>
+	<field name="permisohoras_usuario_hora_salida" class="java.lang.String"/>
+	<field name="permisohoras_usuario_hora_entrada" class="java.lang.String"/>
+	<field name="permisohoras_usuario_id_motivo" class="java.lang.Integer"/>
+	<field name="motivo_1" class="java.lang.String"/>
+	<field name="motivo_2" class="java.lang.String"/>
+	<field name="motivo_3" class="java.lang.String"/>
+	<field name="motivo_4" class="java.lang.String"/>
+	<field name="motivo_5" class="java.lang.String"/>
+	<field name="motivo_6" class="java.lang.String"/>
+	<field name="permisohoras_usuario_fecha" class="java.sql.Date"/>
+	<field name="permisohoras_usuario_tiempo_solicita" class="java.lang.String"/>
+	<field name="permisohoras_usuario_observacion" class="java.lang.String"/>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="784" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="784" uuid="e024d988-b5b9-4ba7-b29f-e62158bf6a4f"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte [])$F{fondo})]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="125" y="60" width="208" height="12" uuid="81c0e067-ffb5-485b-a6b4-3ef8f04ba8b7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="49" width="229" height="12" uuid="b467fa3d-f760-40d7-8c50-3499deb1049a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecha}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="197" width="436" height="28" uuid="7613748e-350b-47e2-a8bd-95632e464222"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="74" width="229" height="11" uuid="ac20300a-a7e5-4f88-b73f-668f893ebd8c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="85" width="202" height="13" uuid="89aee7d7-20ff-42f7-b26f-36e9a83b08b0"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_tiempo_solicita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="111" width="57" height="12" uuid="4fada8a6-7350-421d-b0b5-50be5d767946"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_hora_salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="111" width="63" height="12" uuid="e39392f3-99db-4398-83b5-8eeed98fe606"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_hora_entrada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="250" width="100" height="12" uuid="632c711a-207c-44a6-8f78-9263dc4b82c6"/>
+				<textElement>
+					<font size="6" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="346" y="249" width="100" height="13" uuid="58213c45-8480-4791-86b9-1b0d470e412d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="487" y="249" width="42" height="13" uuid="33e849f3-9380-4fb2-9435-3ebc130a4a59"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="53" width="14" height="14" uuid="f123728d-70c7-4c44-8b11-d0aa9d9bd451"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="66" width="14" height="14" uuid="282b86f2-4c40-430a-8023-ae256b32dd34"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="78" width="14" height="14" uuid="b8957d69-faef-4cbf-871a-63464e0f16cc"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="92" width="14" height="14" uuid="bfc037bd-a439-467f-83ad-d67615389c80"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="99" width="70" height="12" uuid="6ad4da7c-591a-44f7-9b01-bdb32d3ce06a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecini}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="99" width="70" height="12" uuid="328fac7b-4b14-494c-9ac6-0480bb421537"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecfin}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="102" width="14" height="14" uuid="589bacdc-ff80-42a0-87cf-8ba025670e7e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="116" width="14" height="14" uuid="ee86716b-efbd-4343-98b0-011811efbe55"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="496" y="10" width="57" height="20" uuid="e75573d0-b260-4d17-84ce-b0489dccbabf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_id_permiso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="372" width="57" height="12" uuid="03dcdd6e-e473-42ce-bcd6-b9ea6356b010"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_hora_salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="372" width="63" height="12" uuid="da81a465-600d-49c8-9a5f-5092e58e4340"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_hora_entrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="363" width="14" height="14" uuid="99ff6d4c-4c74-4927-80b5-b93da80d5bad"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="360" width="70" height="12" uuid="7260fd1d-0332-4ee6-92f8-4d0c308ad38b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecfin}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="310" width="229" height="12" uuid="a1453401-3ab1-4be1-93f4-ef4501c95d96"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecha}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="346" width="202" height="13" uuid="edb1e07f-8e49-4ef8-a6b1-82054af57678"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_tiempo_solicita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="323" width="208" height="12" uuid="f00728f5-1480-43a2-8783-b69a8e396ace"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="377" width="14" height="14" uuid="7c64e0a5-5c90-40fa-aa76-5bd0defef2e3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="339" width="14" height="14" uuid="913e211e-666b-4dd7-a585-c6657936af45"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="353" width="14" height="14" uuid="b8f21222-4a28-456e-8a76-2f3886311929"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="360" width="70" height="12" uuid="c21675f5-551f-4c4e-924b-e745c6bdc4d5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecini}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="495" y="271" width="57" height="20" uuid="0972533a-6906-4b28-bc80-4a21d3abd972"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_id_permiso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="314" width="14" height="14" uuid="ed0cb1d3-1dcc-45da-b430-63328c1fe76e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="327" width="14" height="14" uuid="0777fb8f-4302-4a0d-aba1-958430fe06e9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="335" width="229" height="11" uuid="3c2a9722-f01e-42e9-bba7-633eb0a4866e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="348" y="510" width="100" height="13" uuid="e97314b0-e9d8-464d-8e35-66d3401349d8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="511" width="100" height="12" uuid="105bd30f-3c50-4dfc-afcd-17532d1212ac"/>
+				<textElement>
+					<font size="6" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+			<textField pattern="h.mm a">
+				<reportElement x="489" y="510" width="42" height="13" uuid="ba4e5988-9a66-4119-b53e-d26f7c5da280"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="772" width="100" height="12" uuid="28b0fc96-e47b-4382-a207-2fa0ea06f291"/>
+				<textElement>
+					<font size="6" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+			<textField pattern="h.mm a">
+				<reportElement x="487" y="771" width="42" height="13" uuid="65ecb85d-b06d-479f-916d-d27ab1befc6f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="346" y="771" width="100" height="13" uuid="43b95570-9d8d-46a3-95a4-38dbd9a7fd73"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="458" width="436" height="28" uuid="c68653e3-1027-42f5-8872-f80742885bd5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="720" width="436" height="28" uuid="252abea8-8408-4170-a1be-910604ca147b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="495" y="532" width="57" height="20" uuid="d4d7ee21-b272-4d1e-982c-718c0a29a420"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_id_permiso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="576" width="14" height="14" uuid="54b69bdd-20da-4731-ba28-5a508107bf2e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="589" width="14" height="14" uuid="478676cb-0f91-438f-9654-03e0f999230d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="625" width="14" height="14" uuid="23302c2f-d10d-4f9d-8f18-fa713f988356"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="639" width="14" height="14" uuid="46351527-749c-40a4-9edc-f0ad32056c9f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="601" width="14" height="14" uuid="39a4d353-955e-4362-b1d0-ed841872e438"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="615" width="14" height="14" uuid="cb9fe091-7f9b-4d6d-a9d8-73f64698ea14"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="573" width="229" height="12" uuid="e67fecc0-cf57-40b5-812a-930464eba572"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecha}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="609" width="202" height="13" uuid="f8746e39-b482-44c3-85b9-ad409be0ef03"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_tiempo_solicita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="586" width="208" height="12" uuid="9c054ca7-ccbc-4381-9081-fe8e2a3feae5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="598" width="229" height="11" uuid="8eaa876b-4211-45d8-921b-42a6da4d53e6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="622" width="70" height="12" uuid="0872f9b7-1285-4f35-992e-ea2c3e24e55e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecfin}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="622" width="70" height="12" uuid="202de28c-72d0-4315-8ec6-8e0cc9ba8b59"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_fecini}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="634" width="63" height="12" uuid="88333f98-a0d7-41f0-a7f2-29ef24e7a95d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_hora_entrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="634" width="57" height="12" uuid="01de7d54-3942-4c01-a0b4-3bceff818db1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permisohoras_usuario_hora_salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="20" y="178" width="157" height="12" uuid="bd46d592-66a0-4e43-a659-0cc49f643918"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="200" y="178" width="157" height="12" uuid="7eb83078-76b7-437e-bac0-b0fb78d5c1e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jefe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="20" y="439" width="157" height="12" uuid="3b673f3c-d3a2-4026-a235-7629395eb1e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="200" y="439" width="157" height="12" uuid="f9a09ec0-1295-49ef-b76a-9c0cba2f9db7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jefe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="20" y="702" width="157" height="12" uuid="37d4b2c5-f6d3-48e4-9c90-30f2cc4e66bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="200" y="702" width="157" height="12" uuid="09ea648b-ada7-4e85-a108-9a75bdbc8f50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jefe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="383" y="178" width="157" height="19" uuid="19374867-95ab-41f6-aeb2-e7ff9306de7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aprueba_vacas}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="383" y="439" width="157" height="19" uuid="8b9884fd-32fd-4406-9862-d4d7cbf32d70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aprueba_vacas}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="383" y="702" width="157" height="19" uuid="f599fc6b-b553-4386-beda-ae10ed963471"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aprueba_vacas}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="200" y="187" width="157" height="8" uuid="8f28fa4f-b06b-424b-b110-201a3e428b4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_jefe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="20" y="187" width="157" height="8" uuid="3465e4d9-ed7c-4ceb-a9c5-ee4beb505111"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{denominacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="200" y="448" width="157" height="8" uuid="28d65155-a80d-4217-a95d-5b0f456f6455"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_jefe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="20" y="448" width="157" height="8" uuid="ced92527-3f9d-4193-9c7b-f8ea81b16999"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{denominacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="20" y="710" width="157" height="8" uuid="a8fdde64-aec1-47d3-8564-82516c430bba"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{denominacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="200" y="710" width="157" height="8" uuid="25c4362a-b937-4575-b3c5-fae1e51e3b5d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_jefe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="841" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\intranet\\intranet\\src\\java\\reporte\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *,
+(SELECT archivo FROM fondos WHERE id_fondo=13) AS cabecera,
+(SELECT archivo FROM fondos WHERE id_fondo=14) AS pie
+FROM v_documentos WHERE id=$P{id}]]>
+	</queryString>
+	<field name="id" class="java.math.BigInteger"/>
+	<field name="tipo" class="java.math.BigInteger"/>
+	<field name="para_circular" class="java.lang.Integer"/>
+	<field name="tipo_des" class="java.lang.String"/>
+	<field name="de" class="java.lang.Integer"/>
+	<field name="de_full" class="java.lang.String"/>
+	<field name="de_car" class="java.lang.String"/>
+	<field name="tipo_circular" class="java.lang.Boolean"/>
+	<field name="destinatarios" class="java.lang.String"/>
+	<field name="cc" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="codigo_temp" class="java.lang.String"/>
+	<field name="para" class="java.lang.String"/>
+	<field name="cargo_para" class="java.lang.String"/>
+	<field name="codigo_full" class="java.lang.String"/>
+	<field name="asunto" class="java.lang.String"/>
+	<field name="contenido" class="java.lang.String"/>
+	<field name="firmado" class="java.lang.Boolean"/>
+	<field name="firmado_electronicamente" class="java.lang.String"/>
+	<field name="path" class="java.lang.String"/>
+	<field name="anexos" class="java.lang.String"/>
+	<field name="referencia" class="java.math.BigInteger"/>
+	<field name="referencia_codigo" class="java.lang.String"/>
+	<field name="creacion" class="java.sql.Timestamp"/>
+	<field name="enviado" class="java.sql.Timestamp"/>
+	<field name="cabecera" class="java.lang.Object"/>
+	<field name="pie" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="136">
+			<textField>
+				<reportElement x="85" y="93" width="425" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_full}]]></textFieldExpression>
+			</textField>
+			<textField pattern="&apos;Esmeraldas, &apos;dd&apos; de &apos;MMMMM&apos; de &apos;yyyy">
+				<reportElement x="85" y="113" width="425" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creacion}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="595" height="85"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte [])$F{cabecera})]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="40">
+			<printWhenExpression><![CDATA[$F{para_circular}==null]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="40"/>
+				<subreportParameter name="id_documento">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Destinatarios.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="85" y="2" width="57" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARA:]]></text>
+			</staticText>
+		</band>
+		<band height="18">
+			<printWhenExpression><![CDATA[$F{para_circular}!=null]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="18"/>
+				<subreportParameter name="id_documento">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DestinatariosCircular.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="85" y="2" width="57" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARA:]]></text>
+			</staticText>
+		</band>
+		<band height="40">
+			<printWhenExpression><![CDATA[$F{cc}!=null]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="40"/>
+				<subreportParameter name="id_documento">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DestinatariosCC.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="85" y="2" width="57" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CC:]]></text>
+			</staticText>
+		</band>
+		<band height="40">
+			<printWhenExpression><![CDATA[$F{para}!=null]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="40"/>
+				<subreportParameter name="id_documento">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Destinatario.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="85" y="2" width="57" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARA:]]></text>
+			</staticText>
+		</band>
+		<band height="24">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="142" y="4" width="368" height="15"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asunto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="85" y="4" width="57" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASUNTO:]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement x="85" y="16" width="425" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contenido}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="117">
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="117"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "FirmaDocumento.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="65">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="595" height="65"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte [])$F{pie})]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

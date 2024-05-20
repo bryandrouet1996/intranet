@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="5a131b84-219c-438d-b3c3-ceee4e43260d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#55A955">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFE6CF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="actividadesData" uuid="d9a92234-15c1-46cf-9f51-386f84e8b9ec">
+		<parameter name="id_usuario" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[2851]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fecha_inicio" class="java.lang.String">
+			<defaultValueExpression><![CDATA["2020-04-01"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fecha_fin" class="java.lang.String">
+			<defaultValueExpression><![CDATA["2020-04-17"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="tipo" class="java.lang.Boolean">
+			<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     actividad.`id_actividad` AS actividad_id_actvidad,	
+     actividad.`id_usuario` AS actividad_id_usuario,
+     actividad.`tarea` AS actividad_tarea,
+     actividad.`fecha_actividad` AS actividad_fecha_actividad,
+     actividad.`herramienta` AS actividad_herramienta,
+     actividad.`observacion` AS actividad_observacion,
+     actividad.`hora_inicio` AS actividad_hora_inicio,
+     actividad.`estado` AS actividad_estado,
+     actividad.`hora_fin` AS actividad_hora_fin,
+actividad.`indicador` AS actividad_indicador,
+actividad.`grado` AS actividad_grado,
+if(grado="100%", "x", "") AS actividad_cien,
+if(grado="50%", "x", "") AS actividad_medio,
+if(grado="0%", "x", "") AS actividad_cero,
+actividad.`avance` AS actividad_avance,
+(SELECT  DISTINCT
+       CONCAT( (SELECT SUM(HOUR((TIMEDIFF(`hora_inicio`, `hora_fin`)))) AS actividad_tiempo
+FROM `actividad`
+WHERE actividad.`id_usuario` = $P{id_usuario} AND `fecha_actividad` BETWEEN $P{fecha_inicio} AND $P{fecha_fin}) + 
+        CASE WHEN (SELECT SUM(MINUTE((TIMEDIFF(`hora_inicio`, `hora_fin`)))) AS actividad_tiempo
+FROM `actividad`
+WHERE actividad.`id_usuario` = $P{id_usuario} AND `fecha_actividad` BETWEEN $P{fecha_inicio} AND $P{fecha_fin}) > 59 THEN (SELECT  TRUNCATE((SELECT SUM(MINUTE((TIMEDIFF(`hora_inicio`, `hora_fin`)))) AS actividad_tiempo
+FROM `actividad`
+WHERE actividad.`id_usuario` = $P{id_usuario} AND actividad.`estado`=$P{tipo} AND `fecha_actividad` BETWEEN $P{fecha_inicio} AND $P{fecha_fin})/60 , 0)) ELSE 0 END , 'h y ', SUM(MINUTE((TIMEDIFF(`hora_inicio`, `hora_fin`))))% 60, 'm' )
+    
+   FROM `actividad`
+WHERE actividad.`id_usuario` = $P{id_usuario} AND `fecha_actividad` BETWEEN $P{fecha_inicio} AND $P{fecha_fin}) AS total,
+
+CONCAT( HOUR((TIMEDIFF(hora_inicio, hora_fin))), 'h y ', MINUTE((TIMEDIFF(hora_inicio, hora_fin))),'m') AS actividad_tiempo
+ 
+FROM
+     `actividad` actividad INNER JOIN `usuario` usuario ON actividad.`id_usuario`= usuario.`id_usuario` AND actividad.`fecha_actividad` BETWEEN $P{fecha_inicio} AND $P{fecha_fin}
+WHERE
+     actividad.`id_usuario` = $P{id_usuario} AND actividad.`estado`=$P{tipo}
+ORDER BY actividad.`fecha_actividad` ASC;]]>
+		</queryString>
+		<field name="actividad_id_actvidad" class="java.lang.Integer"/>
+		<field name="actividad_id_usuario" class="java.lang.Integer"/>
+		<field name="actividad_tarea" class="java.lang.String"/>
+		<field name="actividad_fecha_actividad" class="java.sql.Date"/>
+		<field name="actividad_herramienta" class="java.lang.String"/>
+		<field name="actividad_observacion" class="java.lang.String"/>
+		<field name="actividad_hora_inicio" class="java.lang.String"/>
+		<field name="actividad_estado" class="java.lang.Boolean"/>
+		<field name="actividad_hora_fin" class="java.lang.String"/>
+		<field name="actividad_indicador" class="java.lang.String"/>
+		<field name="actividad_grado" class="java.lang.String"/>
+		<field name="actividad_cien" class="java.lang.String"/>
+		<field name="actividad_medio" class="java.lang.String"/>
+		<field name="actividad_cero" class="java.lang.String"/>
+		<field name="actividad_avance" class="java.lang.String"/>
+		<field name="total" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="actividad_tiempo" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="id_usuario" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2125]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_inicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2020-03-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2020-04-08"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipo" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[SELECT
+     (SELECT fondos.`archivo` from fondos WHERE id_fondo=7) AS fondo_i1,
+     (SELECT fondos.`archivo` from fondos WHERE id_fondo=8) AS fondo_i2,
+     CONCAT_WS(' ',usuario.`nombre`,usuario.`apellido`) AS nombrecompleto,
+     usuario.`id_usuario` AS usuario_id_usuario,
+     usuario.`codigo_usuario` AS usuario_codigo_usuario,
+     usuario.`nombre` AS usuario_nombre,
+     usuario.`apellido` AS usuario_apellido,
+     usuario.`cedula` AS usuario_cedula,
+     usuario.`correo` AS usuario_correo,
+     usuario.`clave` AS usuario_clave,
+     usuario.`iniciales` AS usuario_iniciales,
+     usuario.`codigo_cargo` AS usuario_codigo_cargo,
+     usuario.`fecha_creacion` AS usuario_fecha_creacion,
+     cargo.`id_cargo` AS cargo_id_cargo,
+     cargo.`codigo_cargo` AS cargo_codigo_cargo,
+     cargo.`descripcion` AS cargo_descripcion,
+     cargo.`fecha_creacion` AS cargo_fecha_creacion
+FROM
+     fondos,
+     `usuario` usuario INNER JOIN `cargo` cargo ON usuario.`codigo_cargo`= cargo.`codigo_cargo`
+WHERE
+     usuario.`id_usuario` = $P{id_usuario}]]>
+	</queryString>
+	<field name="fondo_i1" class="java.lang.Object"/>
+	<field name="fondo_i2" class="java.lang.Object"/>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<field name="usuario_id_usuario" class="java.lang.Integer"/>
+	<field name="usuario_codigo_usuario" class="java.lang.String"/>
+	<field name="usuario_nombre" class="java.lang.String"/>
+	<field name="usuario_apellido" class="java.lang.String"/>
+	<field name="usuario_cedula" class="java.lang.String"/>
+	<field name="usuario_correo" class="java.lang.String"/>
+	<field name="usuario_clave" class="java.lang.String"/>
+	<field name="usuario_iniciales" class="java.lang.String"/>
+	<field name="usuario_codigo_cargo" class="java.lang.String"/>
+	<field name="usuario_fecha_creacion" class="java.sql.Date"/>
+	<field name="cargo_id_cargo" class="java.lang.Integer"/>
+	<field name="cargo_codigo_cargo" class="java.lang.String"/>
+	<field name="cargo_descripcion" class="java.lang.String"/>
+	<field name="cargo_fecha_creacion" class="java.lang.String"/>
+	<variable name="tiempo" class="java.lang.String"/>
+	<pageHeader>
+		<band height="103">
+			<image>
+				<reportElement x="0" y="0" width="802" height="103" uuid="886dc052-d312-429b-ab3e-3ddd268efc7f"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_i1})]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="92">
+			<staticText>
+				<reportElement x="74" y="10" width="156" height="26" uuid="8b069a4b-dc36-4e5b-b875-9f17cca5df9e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombres y apellidos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="33" width="55" height="25" uuid="73e33604-b502-4fa5-b4a8-cfe7e6920e69"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="11" width="284" height="20" uuid="5e104345-852f-41c2-be1d-ba3ee68046a5"/>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="35" width="282" height="20" uuid="ac558d51-92a7-4757-ae0d-bb3962ac6f5e"/>
+				<textFieldExpression><![CDATA[$F{cargo_descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="75" y="59" width="49" height="25" uuid="c8eb2f0a-4b08-4699-87a7-d63f7819035e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="59" width="42" height="25" uuid="741e5898-c58a-4ef7-b396-bdb18b177929"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="124" y="59" width="82" height="20" uuid="4a068c7a-2c78-4c42-9277-f74a31ab896e"/>
+				<textFieldExpression><![CDATA[$P{fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="59" width="100" height="20" uuid="422018a8-f59a-4f6d-a656-2725bad4dc10"/>
+				<textFieldExpression><![CDATA[$P{fecha_fin}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="625" y="0" width="85" height="82" uuid="624659f6-ba3e-419e-8976-89ad6aafba30"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+    new com.google.zxing.qrcode.QRCodeWriter().encode(
+        "Nombres y apellidos: "+$F{nombrecompleto}+" Cédula: "+$F{usuario_cedula},
+        com.google.zxing.BarcodeFormat.QR_CODE, 300, 300
+    )
+)]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="74">
+			<image>
+				<reportElement x="0" y="0" width="802" height="74" uuid="f36116aa-27f9-438f-800b-9f7bad95570f"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_i2})]]></imageExpression>
+			</image>
+			<textField pattern="h.mm a">
+				<reportElement x="567" y="40" width="68" height="15" uuid="447a0f3a-cc12-4495-9820-60f5e45823ec"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="422" y="40" width="132" height="15" uuid="7a4ea8f4-52cc-4962-a4cf-ef644250e8dc"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="114" y="40" width="100" height="12" uuid="e81827d4-bb2d-47a8-a952-29587e554fc5"/>
+				<textElement>
+					<font size="6" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Intranet institucional]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="168">
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="39" y="11" width="770" height="156" uuid="fae93630-a8c9-4952-b6be-be2810a9594b"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="actividadesData" uuid="0158374b-6943-4f11-9a51-4d9ff9fef144">
+						<datasetParameter name="id_usuario">
+							<datasetParameterExpression><![CDATA[$P{id_usuario}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fecha_inicio">
+							<datasetParameterExpression><![CDATA[$P{fecha_inicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fecha_fin">
+							<datasetParameterExpression><![CDATA[$P{fecha_fin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="tipo">
+							<datasetParameterExpression><![CDATA[$P{tipo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="734" uuid="953cf5e3-171a-4555-af72-603b17e0b643">
+						<jr:tableFooter height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="267" y="9" width="92" height="20" uuid="763444c4-81a5-4009-8811-d9ad76777774"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total de horas:]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="359" y="9" width="110" height="20" uuid="8ef7f05d-153b-4f88-b58d-bd08a8254cb0"/>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:column width="72" uuid="f00421b6-f254-416c-b7ae-4fa08a6f8faa">
+							<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="72" height="30" uuid="e82bac9f-8f35-4f45-a3c4-f1f3ae1c6f4c"/>
+									<textElement textAlignment="Center">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Fecha]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 2_TD" height="23" rowSpan="1">
+								<textField>
+									<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="72" height="20" uuid="571840e3-d021-4679-8134-97c3b9ce5472"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{actividad_fecha_actividad}.toString()]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="74" uuid="ff7cdb38-700d-457e-ae2d-606c14602319">
+							<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="74" height="30" uuid="e3d13e76-042d-4ca8-9129-f107c210d3a5"/>
+									<textElement textAlignment="Center">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Tiempo dedicación]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 2_TD" height="23" rowSpan="1">
+								<textField>
+									<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="74" height="20" uuid="ef1a73fd-80a7-4681-b67e-df3f69dd2da3"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{actividad_tiempo}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="267" uuid="b1ed38ae-2d78-414f-a1d1-2c880d023696">
+							<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="267" height="30" uuid="056b84e1-e126-4f9b-9033-dfd3bb2c4aba"/>
+									<textElement textAlignment="Center">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Descripción actividad]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 2_TD" height="23" rowSpan="1">
+								<textField isStretchWithOverflow="true">
+									<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="0" width="265" height="20" uuid="7b9f5837-d3a2-4e7f-832c-334e40344bc7"/>
+									<textFieldExpression><![CDATA[$F{actividad_tarea}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="93" uuid="a9fa96d3-f63f-495e-95fa-e23bf1802546">
+							<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="93" height="30" uuid="3dc83ace-4ee1-4909-9ea1-4fadc891b72e"/>
+									<textElement textAlignment="Center">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Indicador]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 2_TD" height="23" rowSpan="1">
+								<textField isStretchWithOverflow="true">
+									<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="0" width="91" height="20" uuid="549d820f-589d-4fee-93cd-aecb6415227d"/>
+									<textElement textAlignment="Left" verticalAlignment="Top"/>
+									<textFieldExpression><![CDATA[$F{actividad_indicador}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="138" uuid="f4499744-374f-4b1f-b776-4b9f434d849a">
+							<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="138" height="12" uuid="878b296e-4916-481a-85d5-c4ea489acdb6"/>
+									<textElement textAlignment="Center">
+										<font size="8" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Grado de consecución]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="table" x="0" y="12" width="46" height="18" uuid="50a96743-619a-43be-86ab-e65dab9cca83"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="5" isBold="true"/>
+									</textElement>
+									<text><![CDATA[En el tiempo previsto 100%]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="table" x="46" y="12" width="46" height="18" uuid="f2659ebf-6c30-4551-b96f-45f37b8fa5fa"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="5" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Despues del tiempo 50%]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="table" x="92" y="12" width="46" height="18" uuid="837d2a99-0d6b-4709-822c-9e8d68489155"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="5" isBold="true"/>
+									</textElement>
+									<text><![CDATA[No cumplio la actividad 0%]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 2_TD" height="23" rowSpan="1">
+								<textField>
+									<reportElement style="table" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="46" height="23" uuid="0a43dd3f-a6cb-4852-b078-79960603c26b"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="10"/>
+										<paragraph lineSpacing="Single"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{actividad_cien}]]></textFieldExpression>
+								</textField>
+								<textField>
+									<reportElement style="table" positionType="Float" stretchType="RelativeToBandHeight" x="46" y="0" width="46" height="23" uuid="207ea9f7-27f1-45ea-bd5b-8527a6f2430b"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{actividad_medio}]]></textFieldExpression>
+								</textField>
+								<textField>
+									<reportElement style="table" positionType="Float" stretchType="RelativeToBandHeight" x="92" y="0" width="46" height="23" uuid="7bf82588-c869-48cd-ae4c-e60657af4064"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{actividad_cero}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="5e645d16-70a6-4736-b514-727a455021e4">
+							<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="30" uuid="2d3fdfd2-46ad-412d-9046-5f6096fd9fdb"/>
+									<textElement textAlignment="Center">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Avance total]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 2_TD" height="23" rowSpan="1">
+								<textField>
+									<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="23" uuid="43fbf415-6b3d-4685-a139-f8a8d25ae53e"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{actividad_avance}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

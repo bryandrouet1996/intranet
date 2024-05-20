@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1053ee86-d5f4-45eb-86e3-c8527eab6ac0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="asistencia" uuid="29e7c2f8-4d0e-4edf-ae9a-9c298439d1f0">
+		<parameter name="id_acta" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT 
+CONCAT_WS(' ',usuario.apellido,usuario.nombre) AS nombrecompleto,
+organizacion.nombre AS direccion_pertenece,
+(SELECT COUNT(asistencia_acta.id_asistencia) FROM asistencia_acta WHERE asistencia_acta.id_acta=$P{id_acta}) AS contador
+FROM usuario INNER JOIN asistencia_acta ON usuario.id_usuario=asistencia_acta.id_usuario
+INNER JOIN organizacion ON usuario.codigo_unidad= organizacion.nivel_hijo WHERE asistencia_acta.id_acta=$P{id_acta}]]>
+		</queryString>
+		<field name="nombrecompleto" class="java.lang.String"/>
+		<field name="direccion_pertenece" class="java.lang.String"/>
+		<field name="contador" class="java.lang.Long"/>
+	</subDataset>
+	<subDataset name="compromisos" uuid="5170385f-2914-4724-8e5b-ecaad69e0ab2">
+		<parameter name="id_acta" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT 
+compromiso_acta.descripcion AS descripcion_compromiso,
+(SELECT COUNT(compromiso_acta.id_compromiso) FROM compromiso_acta WHERE compromiso_acta.id_acta=$P{id_acta}) AS contador,
+CONCAT_WS(' ',usuario.apellido,usuario.nombre) AS nombrecompleto,
+compromiso_acta.fecha_cumplimiento AS fecha_limite
+FROM compromiso_acta INNER JOIN usuario ON compromiso_acta.id_responsable = usuario.id_usuario
+WHERE compromiso_acta.id_acta=$P{id_acta}]]>
+		</queryString>
+		<field name="descripcion_compromiso" class="java.lang.String"/>
+		<field name="contador" class="java.lang.Long"/>
+		<field name="nombrecompleto" class="java.lang.String"/>
+		<field name="fecha_limite" class="java.sql.Timestamp"/>
+	</subDataset>
+	<parameter name="id_acta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    (SELECT fondos.`archivo` FROM fondos WHERE id_fondo=10) AS fondo_i1,
+CONCAT_WS(' ',usuario.apellido,usuario.nombre) AS nombrecompleto,
+     acta.`id_acta` AS acta_id_acta,
+     acta.`fecha_acta` AS acta_fecha_acta,
+     acta.`asunto` AS acta_asunto,
+     acta.`fecha_convocatoria` AS acta_fecha_convocatoria,
+     acta.`lugar` AS acta_lugar,
+     acta.`id_medio` AS acta_id_medio,
+     acta.`hora_inicio` AS acta_hora_inicio,
+     acta.`hora_fin` AS acta_hora_fin,
+     acta.`orden_dia` AS acta_orden_dia,
+     acta.`desarrollo` AS acta_desarrollo,
+     acta.`estado` AS acta_estado,
+     CONCAT_WS('',"000",acta.`id_acta`) AS numero_documento
+FROM
+     `acta` acta INNER JOIN convocatoria ON convocatoria.id_convocatoria=acta.id_convocatoria INNER JOIN usuario ON usuario.id_usuario=convocatoria.id_convocador
+WHERE acta.`id_acta`=$P{id_acta}]]>
+	</queryString>
+	<field name="fondo_i1" class="java.lang.Object"/>
+	<field name="nombrecompleto" class="java.lang.String"/>
+	<field name="acta_id_acta" class="java.lang.Integer"/>
+	<field name="acta_fecha_acta" class="java.sql.Date"/>
+	<field name="acta_asunto" class="java.lang.String"/>
+	<field name="acta_fecha_convocatoria" class="java.sql.Date"/>
+	<field name="acta_lugar" class="java.lang.String"/>
+	<field name="acta_id_medio" class="java.lang.Integer"/>
+	<field name="acta_hora_inicio" class="java.lang.String"/>
+	<field name="acta_hora_fin" class="java.lang.String"/>
+	<field name="acta_orden_dia" class="java.lang.String"/>
+	<field name="acta_desarrollo" class="java.lang.String"/>
+	<field name="acta_estado" class="java.lang.Integer"/>
+	<field name="numero_documento" class="java.lang.String"/>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="802" uuid="b4d666be-2381-45f4-8ffc-64b3ba16e0cf"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $F{fondo_i1})]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="291" splitType="Stretch">
+			<image>
+				<reportElement x="456" y="146" width="88" height="83" uuid="31b602af-f81d-4344-9f0b-f4f884cb54c9"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+    new com.google.zxing.qrcode.QRCodeWriter().encode(
+        "Número de documento: "+$F{numero_documento}+"  "+"\nFecha de acta: "+$F{acta_fecha_acta}+"\nFecha de convocatoria: "+$F{acta_fecha_convocatoria}+"\nHora de inicio: "+$F{acta_hora_inicio}+"\nHora de fin: "+$F{acta_hora_fin}+"\nLugar: "+$F{acta_lugar}+"\nElaborado por: "+$F{nombrecompleto},
+        com.google.zxing.BarcodeFormat.QR_CODE, 300, 300
+    )
+)]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="14" y="126" width="134" height="20" uuid="5ebd8d90-8867-4724-a832-7d57ba7a0da7"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Asunto de la reunión:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="159" y="126" width="396" height="20" uuid="45df0363-45df-4240-bdae-eea6a4eecea1"/>
+				<textFieldExpression><![CDATA[$F{acta_asunto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="150" width="39" height="20" uuid="f3e11e58-8d6a-4153-9c8f-f411855fa0b2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="55" y="151" width="76" height="20" uuid="8947070e-568b-4cea-b72c-a20c8af05d3d"/>
+				<textFieldExpression><![CDATA[$F{acta_fecha_acta}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="133" y="151" width="115" height="20" uuid="a64c8cdd-50e8-4c33-872d-be9c517e04c7"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha convocatoria:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="249" y="151" width="77" height="20" uuid="02d92585-a96c-4007-b3ce-da0551852247"/>
+				<textFieldExpression><![CDATA[$F{acta_fecha_convocatoria}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="170" width="95" height="20" uuid="3385569b-3aa9-4fff-a1c1-1f8cb180fdb3"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora de inicio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="171" width="68" height="20" uuid="ac13fca7-5215-4253-88a0-c088ca84593a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora de fin:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="99" y="170" width="60" height="20" uuid="095b757d-e66e-4789-92be-72f93712e7de"/>
+				<textFieldExpression><![CDATA[$F{acta_hora_inicio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="226" y="171" width="100" height="20" uuid="32fcff11-4fbd-40ce-9f48-d00a22d027c4"/>
+				<textFieldExpression><![CDATA[$F{acta_hora_fin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="193" width="48" height="20" uuid="5862fe1b-16a3-42cf-9e2b-137c5924a944"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lugar:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="62" y="193" width="274" height="20" uuid="e20e9119-1a24-4bd5-910f-cc9141ba77d0"/>
+				<textFieldExpression><![CDATA[$F{acta_lugar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="234" width="541" height="18" uuid="31ddcac7-49ef-4e37-9ea3-3488a64751cc"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DEL DÍA]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="14" y="252" width="541" height="37" uuid="7ed7cc16-3df3-4c41-be43-9dbf7b547b05"/>
+				<textFieldExpression><![CDATA[$F{acta_orden_dia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="186" y="83" width="160" height="18" uuid="bd912e94-c3b0-433e-97a1-8faa304810b1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACTA DE REUNIÓN N°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="80" width="215" height="20" uuid="f2dce3a2-8708-42db-95e8-206f892b2c4e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="187" y="101" width="203" height="18" uuid="14a21430-5037-4f6f-b4da-61097dfe1d2d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALCALDÍA DE ESMERALDAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="64">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="15" y="27" width="541" height="35" uuid="de8d9d9a-cd45-4b04-9bae-e50b8ed49ec2"/>
+				<textFieldExpression><![CDATA[$F{acta_desarrollo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="3" width="541" height="18" uuid="c434b3a8-e194-44c1-b931-c415ef228172"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESARROLLO / PROPUESTAS / ACUERDOS]]></text>
+			</staticText>
+		</band>
+		<band height="133">
+			<componentElement>
+				<reportElement key="table 4" style="table 4" x="15" y="39" width="541" height="80" uuid="22ec6964-38d8-43d8-973b-b8ca458a89ea"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="asistencia" uuid="4b0a055c-a47d-49dc-b708-00def5e3a544">
+						<datasetParameter name="id_acta">
+							<datasetParameterExpression><![CDATA[$P{id_acta}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="535" uuid="34aaa0a4-6a76-4a61-8729-bc5f2f88e19e">
+						<jr:tableFooter style="table 3_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="174" y="0" width="115" height="22" uuid="240e9dc4-d997-4ffc-a4a4-2ec1db2bf3fa"/>
+								<textElement verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total de asistentes:]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="285" y="0" width="32" height="22" uuid="02cae0c2-fd78-4559-ba54-fb7f161810b2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{contador}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:column width="216" uuid="3d150ef1-764c-41bf-95e3-3af5bad1ab19">
+							<jr:columnHeader style="table 4_CH" height="19" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="216" height="19" uuid="9520c2c3-0569-4230-b86b-e5983746be4e"/>
+									<textElement textAlignment="Center">
+										<font size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Apellidos y Nombres]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 4_TD" height="36" rowSpan="1">
+								<textField>
+									<reportElement x="6" y="0" width="210" height="36" uuid="9f16a796-c4aa-4d52-80fb-50735ebb1074"/>
+									<textElement verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="163" uuid="fc90a290-11b5-403e-bc5f-c219ae3d4de4">
+							<jr:columnHeader style="table 4_CH" height="19" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="163" height="19" uuid="bbbbd743-1e85-4b98-b336-7ecde878f96d"/>
+									<textElement textAlignment="Center">
+										<font size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Dirección / Unidad]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 4_TD" height="36" rowSpan="1">
+								<textField isStretchWithOverflow="true">
+									<reportElement x="7" y="0" width="156" height="36" uuid="3ae48d2d-7643-41d0-9b19-3c77f1f26b2e"/>
+									<textElement verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{direccion_pertenece}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="156" uuid="e0d15a3f-0f78-42d2-9cd3-63394237521b">
+							<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="156" height="19" uuid="f0356fc4-4cdd-4ab4-8282-fbf1e36e44b1"/>
+									<textElement textAlignment="Center">
+										<font size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Firma]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 4_TD" height="36" rowSpan="1"/>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="2" y="5" width="555" height="18" uuid="aea02e45-f699-4f4d-b7fb-35ecd17224cc"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASISTENTES]]></text>
+			</staticText>
+		</band>
+		<band height="129">
+			<staticText>
+				<reportElement x="1" y="0" width="555" height="18" uuid="5123c1b7-dd21-40b2-93b7-d4c4f1b1f164"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROMISOS]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 5" style="table 5" x="15" y="34" width="540" height="80" uuid="4d7cb9ee-13ef-4cea-ab62-b4908c80809b"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="compromisos" uuid="9a2b07f3-452c-4c34-9d03-eb3df7a69363">
+						<datasetParameter name="id_acta">
+							<datasetParameterExpression><![CDATA[$P{id_acta}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="536" uuid="db4690d8-aedc-4768-bf7d-580e144367d5">
+						<jr:tableFooter style="table 5_CH" height="21" rowSpan="1">
+							<staticText>
+								<reportElement x="150" y="0" width="141" height="21" uuid="b1ca8fd5-70ca-4458-8ff1-16989ea635ec"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total de compromisos:]]></text>
+							</staticText>
+							<textField>
+								<reportElement x="286" y="0" width="53" height="21" uuid="91bbccec-49e7-4cf0-a669-e4f17159923c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{contador}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:column width="90" uuid="d48415a0-b371-424c-8ede-d0a788a967c6">
+							<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="30" uuid="39951f0c-0755-4959-86ac-d6f3a377873c"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Fecha límite]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 5_TD" height="38" rowSpan="1">
+								<textField isStretchWithOverflow="true">
+									<reportElement x="0" y="0" width="90" height="38" uuid="04aba02a-00b0-49ec-aeae-22f216910709"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{fecha_limite}.toString()]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="156" uuid="e4c184c2-ba4e-4c67-9f13-4ded7ffe4351">
+							<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="156" height="30" uuid="18c3f54a-f2f1-48f3-9999-43ab4ea0a445"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Responsable]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 5_TD" height="38" rowSpan="1">
+								<textField isStretchWithOverflow="true">
+									<reportElement x="6" y="0" width="150" height="38" uuid="87cec3a9-dd72-4d28-bb31-da10aab007cf"/>
+									<textElement verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="164" uuid="06169e2a-9274-4081-b18a-5c61de15529e">
+							<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="164" height="30" uuid="f8c853a2-bcaf-41c5-80b4-709471125172"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Descripción]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 5_TD" height="38" rowSpan="1">
+								<textField>
+									<reportElement x="5" y="0" width="159" height="38" uuid="293a48a5-0c82-4440-ab0b-27abc006c614"/>
+									<textFieldExpression><![CDATA[$F{descripcion_compromiso}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="126" uuid="f20c433e-3f44-4818-8834-5bcfa54e3d74">
+							<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="126" height="30" uuid="70d0edf0-6700-464f-81c1-6c9c70b88831"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[Firma]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 5_TD" height="38" rowSpan="1"/>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="177">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="444" y="157" width="100" height="20" uuid="c83ddf30-69f7-41d3-8833-f577c6897c6b"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="157" width="240" height="20" uuid="d99b0160-4a1d-41ac-9b0d-0510efeb845a"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intranet institucionall - Dirección de tecnologías de la información]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="12" width="244" height="20" uuid="ac5056b0-a0f7-40bc-862c-5196062a96fa"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Elaborado por:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="8" y="92" width="246" height="20" uuid="9c2c03d7-098c-4e35-a744-85c549f891f1"/>
+				<textFieldExpression><![CDATA[$F{nombrecompleto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="140" splitType="Stretch"/>
+	</summary>
+</jasperReport>
